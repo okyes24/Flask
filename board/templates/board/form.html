@@ -1,0 +1,20 @@
+{% include  'top.html' %}
+<section>
+<br/>
+<div align="center">
+<h1>게시판 글쓰기</h1>
+<form action="board_save" method="post">
+<table  border="1" >
+<tr><td>이름</td><td> <input type="text" name="sname"> </td></tr>
+<tr><td>제목</td><td> <input type="text" name="title"> </td></tr>
+<tr><td>내용</td><td> <textarea cols="60" rows="5" name="content" ></textarea> </td></tr>
+<tr><td colspan="2" align="center" >
+    <input type="submit" value="저장하기" >
+    </td></tr>
+</table>
+</form>
+<A HREF="/board/boardList" > 목록보기 </A>
+</div>
+<br/>
+</section>
+{% include  'bottom.html' %}

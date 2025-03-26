@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% include  'top.html' %}
+<section>
+<br/>
+<div align="center">
+<h2>게시판 목록보기 {{total_count}} //전체 페이지{{total_page}} // 현재 페이지{{now_page}} </h2>
+<table border="1" width="550">
+<tr align="center" ><td>번호 </td><td>이름 </td><td>제목 </td><td>조회수(d) </td></tr>
+
+  {% for  row  in rows %}
+
+  <tr>
+    <td align="center" > {{ row['idx'] }}  </td>
+    <td align="center" >
+
+      <a href="{{url_for('board_bp.board_edit',idx=row['idx'], ch1=request.args.get('ch1'),ch2=request.args.get('ch2'))}}">
+      {{ row['sname'] }}
+      </a>
+    </td>
+    <td> {{ row['title'] }} </td>
+    <td  align="center" >
+      <a href="{{url_for('board_bp.board_delete',idx=row['idx'], ch1=request.args.get('ch1'),ch2=request.args.get('ch2'))}}">
+      {{ row['cnt'] }}
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+<A HREF="/board/board_form" > 글쓰기 </A> <br>
+
+<A HREF="{{url_for('board_bp.board_list',start_idx=1, ch1=request.args.get('ch1'),ch2=request.args.get('ch2')) }}" > 처음으로 </A> &emsp;&emsp;
+{% if start_idx>9 %}
+  <A HREF="{{url_for('board_bp.board_list',start_idx=start_idx-page_size,ch1=request.args.get('ch1'),ch2=request.args.get('ch2')) }}" > 이전 </A> &emsp;&emsp;
+  {% else %}
+  이전 &emsp;&emsp;
+
+{% endif %}
+
+{% if now_page< total_page%}
+<A HREF="{{url_for('board_bp.board_list',start_idx=start_idx+page_size, ch1=request.args.get('ch1'),ch2=request.args.get('ch2')) }}" > 다음 </A> &emsp;&emsp;
+  {% else %}
+  다음 &emsp;&emsp;
+{% endif%}
+
+<A HREF="{{url_for('board_bp.board_list',start_idx=(total_page-1)*page_size+1, ch1=request.args.get('ch1'),ch2=request.args.get('ch2')) }}" > 마지막으로 </A>&emsp;&emsp;
+
+<form action="/board/board_list">
+  <select name="ch1">
+    <option value="sname">이름 </option>
+    <option value="title">제목 </option>
+  </select>
+  <input type="text" name="ch2">
+  <input type="submit" value="검색하기">
+
+</form>
+
+
+
+</div>
+<br/>
+</section>
+{% include  'bottom.html' %}
